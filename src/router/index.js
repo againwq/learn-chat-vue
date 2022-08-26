@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '@/views/Login.vue'
-import ChatDashboard from '@/views/ChatDashboard.vue'
+
 
 Vue.use(VueRouter)
 
@@ -14,7 +14,12 @@ const routes = [
   {
     path: '/chat',
     name: 'chat',
-    component: ChatDashboard,
+    component: () => import('@/views/ChatDashboard.vue')
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: () => import('@/views/Register.vue')
   }
 ]
 

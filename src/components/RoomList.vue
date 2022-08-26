@@ -1,7 +1,8 @@
 <template>
   <div class="room-list">
-    <h4>Channels</h4>
+    <h4>Rooms</h4>
     <hr>
+    <el-button icon="el-icon-plus">create</el-button>
     <b-list-group v-if="activeRoom">
       <b-list-group-item v-for="room in rooms"
                         :key="room.name"

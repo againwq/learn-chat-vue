@@ -1,11 +1,11 @@
 <template>
   <div class="login">
     <b-jumbotron  header="Vue.js Chat"
-                  lead="Powered by Chatkit SDK and Bootstrap-Vue"
+                  lead="Welcome to my ChatProject by vue"
                   bg-variant="info"
                   text-variant="white">
-      <p>For more information visit website</p>
-      <b-btn target="_blank" href="https://pusher.com/chatkit">More Info</b-btn>
+      <p>click there to register new user</p>
+      <b-btn @click="register">register</b-btn>
     </b-jumbotron>
     <b-container>
       <b-row>
@@ -27,7 +27,11 @@ export default {
   components: {
     LoginForm
   },
-  
+  methods:{
+    register(){
+      this.$router.push('register')
+    }
+  }
 
 }
 </script>
