@@ -19,27 +19,13 @@ export default {
         username: currentUser.id,
         name: currentUser.name
       });
-      // Save list of user's rooms in store
-      const rooms = currentUser.rooms.map(room => ({
-        id: room.id,
-        name: room.name
-      }))
-      commit('setRooms', rooms);
-
-      // Subscribe user to a room
-      const activeRoom = state.activeRoom || rooms[0]; // pick last used room, or the first one
-      commit('setActiveRoom', {
-        id: activeRoom.id,
-      name: activeRoom.name
-     });
-      await chatkit.subscribeToRoom(activeRoom.id);
-      
-      return true;
 
       commit('setReconnect', false);
 
       // 打印当前用户信息
       console.log(state.user);
+      
+      return true
     } catch (error) {
       if(userId !== 'xqc'){
         commit('setError', '该用户未注册')
@@ -51,5 +37,17 @@ export default {
       //关闭加载状态
       commit('setLoading', false);
     }
-  }
+  },
+  //切换聊天室
+  async changeRoom({ commit, state }, roomName) {
+    try {
+      const newCurrentRoom = state.rooms.forEach(room => {
+        if(room.name == roomName)
+        return room
+      });
+      commit('setActiveRoom', newCurrentRoom);
+    } catch (error) {
+      handleError(commit, error)
+    }
+  },
 }

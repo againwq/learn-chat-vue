@@ -4,7 +4,7 @@
     <hr>
     <b-list-group>
       <b-list-group-item v-for="user in users" :key="user.username">
-        {{ user.name }}
+        {{ user.username }}
         <b-badge v-if="user.presence"
         :variant="statusColor(user.presence)"
         pill>

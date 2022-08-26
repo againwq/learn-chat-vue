@@ -11,11 +11,11 @@ export default {
     setReconnect(state, reconnect) {
       state.reconnect = reconnect;
     },
-    setActiveRoom(state, roomId) {
-      state.activeRoom = roomId;
+    setActiveRoom(state,activeRoom){
+      state.activeRoom = activeRoom
     },
-    setRooms(state, rooms) {
-      state.rooms = rooms
+    setRoom(state, room) {
+      state.rooms.push(room)
     },
     setUsers(state, users) {
       state.users = users
