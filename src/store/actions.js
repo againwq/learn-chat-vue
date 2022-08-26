@@ -38,6 +38,20 @@ export default {
       commit('setLoading', false);
     }
   },
+
+  //创建聊天室
+  async createRoom({ commit, state}, newRoom){
+    state.rooms.forEach(room => {
+      if(room.name == newRoom.name){
+        return true
+      }
+    })
+      commit('setRoom', newRoom)
+      commit('setActiveRoom', newRoom)
+
+      return false
+  },
+
   //切换聊天室
   async changeRoom({ commit, state }, roomName) {
     try {
@@ -50,4 +64,5 @@ export default {
       handleError(commit, error)
     }
   },
+  
 }

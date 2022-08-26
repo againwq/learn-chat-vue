@@ -11,7 +11,7 @@
   <el-input placeholder="Please input new room name"></el-input>
   <span slot="footer" class="dialog-footer">
     <el-button @click="dialogVisible = false">cancel</el-button>
-    <el-button type="primary" @click="onCreate">confirm</el-button>
+    <el-button :plain="!displayAlert" type="primary" @click="onCreate">confirm</el-button>
   </span>
 </el-dialog>
 
@@ -29,14 +29,18 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'RoomList',
   data() {
       return {
         dialogVisible: false,
-        newRoom: []
+        displayAlert: false,
+        newRoom: {
+          name: '',
+          id: '1234',
+        }
       };
     },
   computed: {
@@ -45,20 +49,20 @@ export default {
       'activeRoom'
     ]),
   },
-  mounted(){
-    
-   console.log(this.rooms)
-  },
+ 
   methods:{
-    //创建新的聊天室
-    onCreate(){
-      this.$store.commit('setRoom', this.newRoom)
-      this.$store.commit('setActiveRoom', this.newRoom)
-      this.onChange(this.room.name)
-      this.dialogVisible = false
+    ...mapActions(['changeRoom', 'createRoom']),
+   
+    
+    async onChange(room) {
+      await this.changeRoom(room.name)
     },
-     onChange(room) {
-      this.changeRoom(room.name)
+
+    //创建新的聊天室
+    async onCreate(){
+      const currentNewRoom = this.newRoom
+      this.displayAlert = await this.createRoom(currentNewRoom)
+     
     },
  
   }
