@@ -44,7 +44,7 @@ export default {
   computed: {
     ...mapState([
       'rooms',
-      'activeRoom'
+      'activeRoom',
     ]),
   },
 
@@ -54,25 +54,27 @@ export default {
     async onChange(room) {
       await this.changeRoom(room.name)
     },
+    
     //创建新的聊天室
     async onCreate(){
-      let count = 0
-      const currentNewRoom = Object.assign({},this.newRoom)
-      this.rooms.forEach(room => {
-        if(room.name == this.newRoom.name)
-        this.$message('this room has existed')
-        count = count + 1
-       }
-      )
-      if(count == 0){
-       this.dialogVisible = !await this.createRoom(currentNewRoom)
-       this.newRoom.name = ''
-       console.log(this.activeRoom)
-      }else{
-        return
-      }
       
-    },
+      const currentNewRoom = Object.assign({},this.newRoom)
+    
+      const rew =  await this.onCreate(currentNewRoom)
+       console.log('???',rew)
+    
+     /*  const result = 0
+      if(result == 0){
+        this.$message('the length of name can not less than 3')
+      }
+      else if(result == 1){
+        this.$message('this name has existed')
+      }
+      else if(result == 2){
+        this.newRoom.name = ''
+        this.dialogVisible = false
+      }*/
+    }, 
  
   }
 }
