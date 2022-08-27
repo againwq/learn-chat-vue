@@ -40,14 +40,25 @@ export default {
   },
 
   //创建聊天室
-  async createRoom({ commit }, newRoom){
-    try{
-      commit('setRoom', newRoom)
-      commit('setActiveRoom', newRoom)
-      return true
-    }catch(error){
-      handleError(commit,error)
+  async createRoom({ commit, state }, newRoom){
+    let count = 2
+
+    if(newRoom.name.length <= 3){
+      count = 0
     }
+
+    for(let i = 0; i < state.rooms.length; i++){
+      if(state.rooms[i] == newRoom.name){
+        count = 1
+        break
+      }
+    }
+    if(count == 2){
+      commit('setRoom',newRoom)
+      commit('setActiveRoom', newRoom)
+    }
+
+    return count
   },
 
   //切换聊天室
