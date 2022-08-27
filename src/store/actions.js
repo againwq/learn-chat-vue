@@ -40,16 +40,14 @@ export default {
   },
 
   //创建聊天室
-  async createRoom({ commit, state}, newRoom){
-    state.rooms.forEach(room => {
-      if(room.name == newRoom.name){
-        return true
-      }
-    })
+  async createRoom({ commit }, newRoom){
+    try{
       commit('setRoom', newRoom)
       commit('setActiveRoom', newRoom)
-
-      return false
+      return true
+    }catch(error){
+      handleError(commit,error)
+    }
   },
 
   //切换聊天室
