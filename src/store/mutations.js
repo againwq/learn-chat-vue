@@ -17,6 +17,7 @@ export default {
     setRoom(state, room) {
       state.rooms.push(room)
     },
+    
     setUsers(state, users) {
       state.users = users
     },

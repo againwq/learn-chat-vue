@@ -17,18 +17,19 @@ export default {
       const currentUser = await chatkit.connectUser(userId);
       commit('setUser', {
         username: currentUser.id,
-        name: currentUser.name
+        name: currentUser.name,
+        presence: 'online'
       });
 
       commit('setReconnect', false);
-
+      
       // 打印当前用户信息
       console.log(state.user);
-      
+      state.users.push(state.user)
       return true
     } catch (error) {
       if(userId !== 'xqc'){
-        commit('setError', '该用户未注册')
+        commit('setError', 'the requested user does not exist')
       }
       else{
       handleError(commit,error)
@@ -41,34 +42,33 @@ export default {
 
   //创建聊天室
   async createRoom({ commit, state }, newRoom){
-    let count = 2
-
+    let result = 2
     if(newRoom.name.length <= 3){
-      count = 0
+      result = 0
     }
 
-    for(let i = 0; i < state.rooms.length; i++){
-      if(state.rooms[i] == newRoom.name){
-        count = 1
-        break
+    state.rooms.forEach(room => {
+      if(room.name == newRoom.name){
+        result = 1
       }
-    }
-    if(count == 2){
-      commit('setRoom',newRoom)
+    });
+
+    if(result == 2){
+      commit('setRoom', newRoom)
       commit('setActiveRoom', newRoom)
     }
-
-    return count
+   
+    return result
   },
 
   //切换聊天室
-  async changeRoom({ commit, state }, roomName) {
+  async changeRoom({ commit, state }, nextRoom) {
     try {
-      const newCurrentRoom = state.rooms.forEach(room => {
-        if(room.name == roomName)
-        return room
+      state.rooms.forEach(room => {
+        if(room.name == nextRoom.name)
+        commit('setActiveRoom', nextRoom);
       });
-      commit('setActiveRoom', newCurrentRoom);
+     
     } catch (error) {
       handleError(commit, error)
     }

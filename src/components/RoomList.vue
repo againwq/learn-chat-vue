@@ -37,7 +37,8 @@ export default {
       return {
         dialogVisible: false,
         newRoom: {
-          name: ''
+          name: '',
+          members: []
         },
       };
     },
@@ -56,8 +57,8 @@ export default {
  
   methods:{
     ...mapActions(['changeRoom', 'createRoom']),
-    async onChange(room) {
-      await this.changeRoom(room.name)
+     onChange(room) {
+       this.changeRoom(room)
     },
     //创建新的聊天室
     async onCreate(){
