@@ -5,8 +5,7 @@
     <div id="chat-messages" class="message-group" v-chat-scroll="{smooth: true}">
       <div class="message" v-for="(message, index) in messages" :key="index">
         <div class="clearfix">
-          <h4 class="message-title">{{ message.name }}</h4>
-          <small class="text-muted float-right">@{{ message.username }}</small>
+          <small class="message-title">@{{ message.username }}</small>
         </div>
         <p class="message-text">
           {{ message.text }}

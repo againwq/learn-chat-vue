@@ -1,4 +1,5 @@
 import chatkit from '../chatkit';
+import moment from 'moment'
 
 // 用于展示错误信息的辅助函数
 function handleError(commit, error) {
@@ -25,7 +26,9 @@ export default {
       
       // 打印当前用户信息
       console.log(state.user);
+
       state.users.push(state.user)
+      
       return true
     } catch (error) {
       if(userId !== 'xqc'){
@@ -73,5 +76,29 @@ export default {
       handleError(commit, error)
     }
   },
+  //发送消息
+  async sendMessage({ commit, state }, message) {
+    try {
+      commit('setError', '');
+      commit('setSending', true);
+      const messageDetail = {
+        text: message,
+        username: state.user.username,
+        data: moment().format('h:mm:ss a D-MM-YYYY')
+      }
+      commit('addMessage', messageDetail)
+      console.log(messageDetail.data)
+      return true
+    } catch (error) {
+      handleError(commit, error)
+    } finally {
+      commit('setSending', false);
+    }
+  },
+  //注销
+  async logout({ commit }) {
+    commit('reset');
+    window.localStorage.clear();
+  }
   
 }

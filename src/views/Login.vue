@@ -1,5 +1,5 @@
 <template>
-  <div class="login">
+  <div class="login" style="text-align: center;">
     <b-jumbotron  header="Vue.js Chat"
                   lead="Welcome to my ChatProject by vue"
                   bg-variant="info"

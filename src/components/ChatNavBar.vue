@@ -5,13 +5,13 @@
     </b-navbar-brand>
     <b-navbar-nav class="ml-auto">
       <b-nav-text>{{ user.name }} | </b-nav-text>
-      <b-nav-item href="#" active>Logout</b-nav-item>
+      <b-nav-item href="#" @click="onLogout" active>Logout</b-nav-item>
     </b-navbar-nav>
   </b-navbar>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'ChatNavBar',
@@ -20,6 +20,13 @@ export default {
       'user',
     ])
   },
+  methods: {
+    ...mapActions(['logout']),
+    onLogout(){
+      this.$router.push('/')
+      this.logout()
+    }
+  }
 }
 </script>
 

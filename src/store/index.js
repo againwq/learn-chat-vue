@@ -22,7 +22,6 @@ export default new Vuex.Store({
     rooms: [],
     users: [],
     messages: [],
-    userTyping: null
   },
   getters: {
     hasError: state => state.error? true : false

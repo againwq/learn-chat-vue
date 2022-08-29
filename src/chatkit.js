@@ -10,7 +10,6 @@ const chatManager = {
     })
   },
 }
-
 //判断用户名来决定是否登录
 async function connectUser(userId) {
     let currentUser = await chatManager.connect();
@@ -21,8 +20,9 @@ async function connectUser(userId) {
 
 }
 
+
  export default {
-  connectUser
+  connectUser,
 }  
 
 
